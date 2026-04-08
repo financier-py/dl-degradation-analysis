@@ -1,6 +1,6 @@
 # config.py
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -12,7 +12,7 @@ class Config:
 
     # --- Архитектура ---
     hidden_dim: int = 64
-    depth: int = 15
+    depths: list[int] = field(default_factory=lambda: [5, 10, 20, 30])
 
     # --- Обучение ---
     epochs: int = 40
