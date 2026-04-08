@@ -22,7 +22,6 @@ def set_seed(seed: int) -> None:
 
 
 def save_results(results: dict, path: str) -> None:
-    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         json.dump(results, f, indent=2)
     print(f"-> сохранено: {path}")

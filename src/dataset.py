@@ -5,7 +5,7 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader, Subset
 
 
-def generate_signal(n_points: int, seed: int = 42) -> np.ndarray:
+def generate_signal(n_points: int, seed: int = 57) -> np.ndarray:
     rng = np.random.default_rng(seed)
     t = np.linspace(0, 100, n_points)
 
@@ -24,15 +24,23 @@ def generate_signal(n_points: int, seed: int = 42) -> np.ndarray:
 
 
 class TimeSeriesDataset(Dataset):
-    def __init__(self, n_points: int = 10_000, window: int = 50, seed: int = 67):
+    def __init__(
+        self,
+        n_points: int = 10_000,
+        window: int = 50,
+        seed: int = 67,
+        train_split: float = 0.8,
+    ):
         self.window = window
 
         signal = generate_signal(n_points, seed=seed)
 
-        mn, mx = signal.min(), signal.max()
-        self.data = ((signal - mn) / (mx - mn)).astype(np.float32)
-        # self.data = (signal - signal.mean()) / (signal.std() + 1e-8)
-        self.data = self.data.astype(np.float32)
+        tr_end = int(n_points * train_split)
+        tr_signal = signal[:tr_end]
+
+        mn, mx = tr_signal.min(), tr_signal.max()
+
+        self.data = ((signal - mn) / (mx - mn + 1e-8)).astype(float)
 
     def __len__(self):
         return len(self.data) - self.window
@@ -48,11 +56,14 @@ def get_dataloaders(
     n_points: int = 10_000,
     window: int = 50,
     batch_size: int = 128,
-    train_split: float = 0.7,
-    val_split: float = 0.15,
+    train_split: float = 0.8,
+    val_split: float = 0.1,
     seed: int = 12,
 ) -> tuple[DataLoader, DataLoader, DataLoader]:
-    dataset = TimeSeriesDataset(n_points=n_points, window=window, seed=seed)
+
+    dataset = TimeSeriesDataset(
+        n_points=n_points, window=window, seed=seed, train_split=train_split
+    )
 
     tot_len = len(dataset)
     tr_end = int(tot_len * train_split)

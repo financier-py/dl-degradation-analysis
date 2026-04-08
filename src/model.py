@@ -62,7 +62,7 @@ class ResBlock(nn.Module):
         return x + self.net(x)
 
 class ResBlockPostNorm(nn.Module):
-    """Post-Norm. Происходит конфликт масштабов"""
+    """Post-Norm"""
 
     def __init__(self, dim: int):
         super().__init__()
@@ -80,7 +80,7 @@ class ResBlockPostNorm(nn.Module):
 
 
 class ResBlockPreNorm(nn.Module):
-    """Pre-Norm. skip прибавляется как бы до нормализации"""
+    """Pre-Norm"""
 
     def __init__(self, dim: int):
         super().__init__()
