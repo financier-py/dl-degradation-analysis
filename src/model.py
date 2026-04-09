@@ -141,11 +141,11 @@ class DeepModel(nn.Module):
         self.out_layer = nn.Linear(hidden_dim, 1)
         #self.apply(self._init_weights)
 
-    def _init_weights(self, m):
-        if isinstance(m, nn.Linear):
-            nn.init.kaiming_normal_(m.weight, nonlinearity="leaky_relu", a=0.01)
-            if m.bias is not None:
-                nn.init.constant_(m.bias, 0)
+    # def _init_weights(self, m):
+    #     if isinstance(m, nn.Linear):
+    #         nn.init.kaiming_normal_(m.weight, nonlinearity="leaky_relu", a=0.01)
+    #         if m.bias is not None:
+    #             nn.init.constant_(m.bias, 0)
 
     def forward(self, x: torch.Tensor):
         x = self.inp_layer(x)

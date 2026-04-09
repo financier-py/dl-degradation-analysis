@@ -12,15 +12,15 @@ class Config:
 
     # --- Архитектура ---
     hidden_dim: int = 64
-    depths: list[int] = field(default_factory=lambda: [5, 10, 20, 30])
+    depths: list[int] = field(default_factory=lambda: [1, 5, 10, 15, 20])
 
     # --- Обучение ---
-    epochs: int = 40
+    epochs: int = 30
     batch_size: int = 256
     lr: float = 1e-5
 
     # --- Рандом ---
-    seed: int = 57
+    seed: int = 55
 
     # --- Пути ---
     save_dir: str = "experiments"

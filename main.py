@@ -35,7 +35,7 @@ def run_experiment(
     val_loader: DataLoader,
     test_loader: DataLoader,
 ):
-    exp_name = f"{exp['name']} + depth {depth}"
+    exp_name = f"{exp['name']} + depth {depth * 2}"
     print(f"Running {exp_name}")
 
     set_seed(cfg.seed)

@@ -40,7 +40,7 @@ class TimeSeriesDataset(Dataset):
 
         mn, mx = tr_signal.min(), tr_signal.max()
 
-        self.data = ((signal - mn) / (mx - mn + 1e-8)).astype(float)
+        self.data = ((signal - mn) / (mx - mn + 1e-8)).astype(np.float32)
 
     def __len__(self):
         return len(self.data) - self.window
