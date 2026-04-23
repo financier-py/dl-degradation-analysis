@@ -32,4 +32,5 @@ EXPERIMENTS: list[dict] = [
     {"model_type": "mlp", "norm_type": None, "name": "MLP (no BN)"},
     {"model_type": "resnet", "norm_type": "postnorm", "name": "ResNet + Post-Norm BN"},
     {"model_type": "resnet", "norm_type": "prenorm", "name": "ResNet + Pre-Norm BN"},
+    {"model_type": "mlp", "norm_type": "prenorm", "name": "MLP + Pre-Norm BN"},
 ]

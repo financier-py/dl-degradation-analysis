@@ -40,6 +40,24 @@ class MLPBlockBN(nn.Module):
         return self.relu(self.net(x))
 
 
+class MLPBlockPreNorm(nn.Module):
+    """Pre-Norm MLP: нормализация до лин. слоя"""
+
+    def __init__(self, dim: int):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.BatchNorm1d(dim),
+            nn.Linear(dim, dim),
+            nn.ReLU(),
+            nn.BatchNorm1d(dim),
+            nn.Linear(dim, dim),
+        )
+        self.relu = nn.ReLU()
+
+    def forward(self, x: torch.Tensor):
+        return self.relu(self.net(x))
+
+
 # -------------------- ResNet блоки --------------------
 
 
@@ -54,12 +72,13 @@ class ResBlock(nn.Module):
             nn.Linear(dim, dim),
         )
 
-        nn.init.constant_(self.net[-1].weight, 0.0) # type: ignore
+        nn.init.constant_(self.net[-1].weight, 0.0)  # type: ignore
         if self.net[-1].bias is not None:
-            nn.init.constant_(self.net[-1].bias, 0.0) # type: ignore
+            nn.init.constant_(self.net[-1].bias, 0.0)  # type: ignore
 
     def forward(self, x: torch.Tensor):
         return x + self.net(x)
+
 
 class ResBlockPostNorm(nn.Module):
     """Post-Norm"""
@@ -69,8 +88,8 @@ class ResBlockPostNorm(nn.Module):
         self.net = nn.Sequential(
             nn.Linear(dim, dim), nn.ReLU(), nn.Linear(dim, dim), nn.BatchNorm1d(dim)
         )
-        nn.init.constant_(self.net[-1].weight, 0.0) # type: ignore
-        nn.init.constant_(self.net[-1].bias, 0.0) # type: ignore
+        nn.init.constant_(self.net[-1].weight, 0.0)  # type: ignore
+        nn.init.constant_(self.net[-1].bias, 0.0)  # type: ignore
         self.relu = nn.ReLU()
 
     def forward(self, x: torch.Tensor):
@@ -92,9 +111,9 @@ class ResBlockPreNorm(nn.Module):
             nn.Linear(dim, dim),
         )
 
-        nn.init.constant_(self.net[-1].weight, 0.0) # type: ignore
+        nn.init.constant_(self.net[-1].weight, 0.0)  # type: ignore
         if self.net[-1].bias is not None:
-            nn.init.constant_(self.net[-1].bias, 0.0) # type: ignore
+            nn.init.constant_(self.net[-1].bias, 0.0)  # type: ignore
 
     def forward(self, x: torch.Tensor):
         return x + self.net(x)
@@ -105,6 +124,7 @@ class ResBlockPreNorm(nn.Module):
 _BLOCK_REGISTRY = {
     ("mlp", None): MLPBlock,
     ("mlp", "postnorm"): MLPBlockBN,
+    ("mlp", "prenorm"): MLPBlockPreNorm,
     ("resnet", None): ResBlock,
     ("resnet", "postnorm"): ResBlockPostNorm,
     ("resnet", "prenorm"): ResBlockPreNorm,
@@ -139,7 +159,7 @@ class DeepModel(nn.Module):
         )
 
         self.out_layer = nn.Linear(hidden_dim, 1)
-        #self.apply(self._init_weights)
+        # self.apply(self._init_weights)
 
     # def _init_weights(self, m):
     #     if isinstance(m, nn.Linear):
