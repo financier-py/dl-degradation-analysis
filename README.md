@@ -13,12 +13,13 @@
 * **Детерминированный хаос**
 * Гауссовский шум.
 
-Я протестировал 5 конфигураций:
+Я протестировал 6 конфигураций:
 1. **MLP** (Pure)
 2. **MLP + Post-Norm BN**
-3. **ResNet** (Pure)
-4. **ResNet + Post-Norm BN**
-5. **ResNet + Pre-Norm BN**
+3. **MLP + Pre-Norm BN**
+4. **ResNet** (Pure)
+5. **ResNet + Post-Norm BN**
+6. **ResNet + Pre-Norm BN**
 
 Каждая модель обучалась на сетке глубин: `[2, 10, 20, 30, 40]` слоев.
 
@@ -26,11 +27,11 @@
 
 Все предположения подтвердились. Подробнее можно посмотреть в ноутбуке `mlp_resnet_study.ipynb`. Пример:
 
-[![image](https://s3.firstvds.ru/fotohosting/2026/04/09/image282f72f2598f5702.png)](https://fotohosting.pro/i/image.79BBbM)
+[![image](https://s3.firstvds.ru/fotohosting/2026/04/23/image686f76ca6a00e0e2.png)](https://fotohosting.pro/i/image.7cJiGa)
 
 Также визуализация норм градиентов: 
 
-[![image](https://s3.firstvds.ru/fotohosting/2026/04/23/imagefcd25149bf7180a5.png)](https://fotohosting.pro/i/image.7cJJHA)
+[![image](https://s3.firstvds.ru/fotohosting/2026/04/23/image8e6d5ed8dec85878.png)](https://fotohosting.pro/i/image.7cJI3p)
 
 ## Технологии
 * **Python 3.11**
