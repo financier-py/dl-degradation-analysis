@@ -28,6 +28,10 @@
 
 [![image](https://s3.firstvds.ru/fotohosting/2026/04/09/image282f72f2598f5702.png)](https://fotohosting.pro/i/image.79BBbM)
 
+Также визуализация норм градиентов: 
+
+[![image](https://s3.firstvds.ru/fotohosting/2026/04/23/imagefcd25149bf7180a5.png)](https://fotohosting.pro/i/image.7cJJHA)
+
 ## Технологии
 * **Python 3.11**
 * **PyTorch**
